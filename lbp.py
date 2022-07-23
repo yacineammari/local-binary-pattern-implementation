@@ -33,7 +33,7 @@ def lbp(image,P=4, Radius=1):
     height = image.shape[0]
     width = image.shape[1]
     padd_image = np.zeros((height+(Radius*2),width+(Radius*2)))
-    padd_image[Radius:height+1,Radius:width+1] = image
+    padd_image[Radius:height+Radius,Radius:width+Radius] = image
     res_image = np.zeros(image.shape)   
     
     # campute the inner matrix 
@@ -98,3 +98,19 @@ def lbp(image,P=4, Radius=1):
             res_image[i-Radius,j-Radius] = lbp
 
     return res_image
+
+
+
+input_path = input('image path: ')
+p = int(input('Number of circularly neighbor: '))
+r = int(input('Radius of circle: ')) 
+img = imageio.imread(input_path)
+
+
+
+output_path = f'{input_path.replace(os.path.basename(input_path),"")}LBP{os.path.basename(input_path)}'
+imageio.imsave(output_path,lbp(img,P=p,Radius=r))
+print(f'LBP image path: {output_path}')
+
+
+
